@@ -1,0 +1,767 @@
+/* ==========================================================================
+   PYTHOMORI: PURE OMORI WHITE SPACE & INTERACTIVE PYTHON IDE STYLESHEET
+   Flawless responsive layout, zero UI clipping, crisp typography, and pixel avatars
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=VT323&family=Fira+Code:wght@400;600;700&family=Outfit:wght@400;600;700;800;900&display=swap');
+
+:root {
+  --omori-black: #0c0d12;
+  --omori-white: #ffffff;
+  --omori-pure-white: #ffffff;
+  --omori-gray: #787d8a;
+  --omori-light-gray: #e8eaf0;
+  
+  --py-green: #306998;
+  --py-yellow: #ffd43b;
+  --py-cyan: #00e5db;
+  --py-pink: #f28e9b;
+  --py-error: #ff3355;
+  
+  --font-retro: 'VT323', monospace;
+  --font-sketch: 'Patrick Hand', cursive;
+  --font-code: 'Fira Code', monospace;
+  --font-ui: 'Outfit', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  background-color: #000;
+  color: var(--omori-black);
+  font-family: var(--font-retro);
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ================= MAIN VIEWPORT (TRUE WHITE SPACE) ================= */
+.game-viewport {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  max-width: 1280px;
+  max-height: 720px;
+  background: var(--omori-pure-white);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), 0 0 0 4px #111;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+}
+
+#rpgCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  image-rendering: pixelated;
+  background: var(--omori-pure-white);
+}
+
+/* ================= TOP STATUS BAR ================= */
+.top-bar {
+  position: absolute;
+  top: 14px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.white-space-badge {
+  background: var(--omori-black);
+  border: 3px solid var(--omori-white);
+  padding: 6px 18px;
+  font-family: var(--font-retro);
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  color: var(--omori-white);
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+}
+
+.top-btns {
+  display: flex;
+  gap: 12px;
+  pointer-events: auto;
+}
+
+.pixel-btn {
+  background: var(--omori-black);
+  border: 3px solid var(--omori-white);
+  color: var(--omori-white);
+  padding: 8px 16px;
+  font-family: var(--font-retro);
+  font-size: 1.3rem;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+  transition: all 0.1s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pixel-btn:hover {
+  background: var(--omori-white);
+  color: var(--omori-black);
+  border-color: var(--omori-black);
+  transform: translateY(-2px);
+}
+
+/* ================= OMORI DIALOGUE BOX ================= */
+.dialogue-box-container {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92%;
+  max-width: 1040px;
+  z-index: 100;
+  display: none;
+}
+
+.dialogue-box-container.active {
+  display: flex;
+  animation: omoriPopIn 0.2s ease;
+}
+
+.omori-textbox {
+  width: 100%;
+  background: #08090d;
+  border: 4px solid var(--omori-white);
+  border-radius: 8px;
+  padding: 18px 24px;
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.95), 0 0 30px rgba(0,0,0,0.7);
+  position: relative;
+  cursor: pointer;
+}
+
+/* Character Avatar Frame */
+.dialogue-avatar-box {
+  width: 100px;
+  height: 100px;
+  border: 3px solid var(--omori-white);
+  background: #ffffff;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialogue-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.dialogue-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 80px;
+}
+
+.dialogue-name {
+  font-family: var(--font-retro);
+  font-size: 1.65rem;
+  color: var(--py-yellow);
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+
+.dialogue-text {
+  font-family: var(--font-ui);
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.dialogue-text .code-inline {
+  font-family: var(--font-code);
+  background: #1f2430;
+  color: var(--py-cyan);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 1.05rem;
+  border: 1px solid #3d475c;
+}
+
+.dialogue-advance-icon {
+  align-self: flex-end;
+  font-family: var(--font-retro);
+  font-size: 1.2rem;
+  color: var(--py-yellow);
+  animation: blinkPrompt 0.8s infinite;
+  margin-top: 4px;
+}
+
+/* Choices */
+.dialogue-choices {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.dialogue-choices.active {
+  display: flex;
+}
+
+.dialogue-choice-btn {
+  background: #181a24;
+  border: 2px solid var(--omori-white);
+  color: var(--omori-white);
+  font-family: var(--font-ui);
+  font-size: 1.15rem;
+  font-weight: 700;
+  padding: 8px 16px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.dialogue-choice-btn:hover {
+  background: var(--omori-white);
+  color: var(--omori-black);
+  padding-left: 24px;
+}
+
+/* ================= LIVE INTERACTIVE PYTHON IDE / LESSON MODAL (NO CLIPPING) ================= */
+.terminal-modal {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  padding: 20px;
+}
+
+.terminal-modal.active {
+  display: flex;
+}
+
+.terminal-window {
+  width: 100%;
+  max-width: 860px;
+  max-height: 90vh;
+  background: #0d1117;
+  border: 4px solid var(--omori-white);
+  border-radius: 10px;
+  box-shadow: 0 0 50px rgba(0,0,0,0.95);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-header {
+  background: #161b22;
+  padding: 10px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #30363d;
+  font-family: var(--font-retro);
+  font-size: 1.4rem;
+  color: var(--py-yellow);
+  flex-shrink: 0;
+}
+
+.terminal-body {
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.terminal-body::-webkit-scrollbar {
+  width: 6px;
+}
+.terminal-body::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 3px;
+}
+
+.terminal-lesson-box {
+  background: #161b22;
+  border-left: 4px solid var(--py-cyan);
+  padding: 14px 18px;
+  border-radius: 6px;
+}
+
+.lesson-title {
+  font-family: var(--font-ui);
+  font-weight: 900;
+  font-size: 1.15rem;
+  color: var(--py-yellow);
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+.lesson-desc {
+  font-family: var(--font-ui);
+  font-size: 0.98rem;
+  color: #c9d1d9;
+  line-height: 1.5;
+}
+
+.lesson-desc h3 {
+  font-size: 1.05rem;
+  color: #fff;
+  margin: 8px 0 4px;
+}
+
+.lesson-desc code {
+  background: #21262d;
+  color: var(--py-cyan);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: var(--font-code);
+  font-size: 0.95rem;
+}
+
+.lesson-desc pre {
+  background: #090d13;
+  padding: 10px;
+  border-radius: 6px;
+  margin: 6px 0;
+  border: 1px solid #30363d;
+}
+
+.code-editor-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.editor-label {
+  font-family: var(--font-code);
+  font-size: 0.9rem;
+  color: #8b949e;
+  font-weight: 600;
+}
+
+.terminal-code-input {
+  width: 100%;
+  height: 110px;
+  background: #090d13;
+  border: 2px solid #30363d;
+  color: #58a6ff;
+  font-family: var(--font-code);
+  font-size: 1.15rem;
+  padding: 12px;
+  outline: none;
+  resize: vertical;
+  border-radius: 6px;
+  line-height: 1.5;
+}
+
+.terminal-code-input:focus {
+  border-color: var(--py-cyan);
+}
+
+.console-output-box {
+  background: #05070a;
+  border: 2px solid #21262d;
+  border-radius: 6px;
+  padding: 10px 14px;
+  min-height: 60px;
+  max-height: 100px;
+  overflow-y: auto;
+  font-family: var(--font-code);
+  font-size: 0.95rem;
+  color: #7ee787;
+  white-space: pre-wrap;
+}
+
+.console-output-box.error {
+  color: var(--py-error);
+}
+
+.terminal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 4px;
+  flex-shrink: 0;
+}
+
+.terminal-status-hint {
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  color: #8b949e;
+  font-weight: 600;
+}
+
+/* ================= OMORI BATTLE VIEWPORT ================= */
+.battle-layer {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  z-index: 150;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+}
+
+.battle-layer.active {
+  display: flex;
+  animation: battleShatter 0.4s ease;
+}
+
+.battle-ticker {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(13, 13, 18, 0.96);
+  border: 3px solid var(--omori-white);
+  padding: 10px 28px;
+  font-family: var(--font-sketch);
+  font-size: 1.6rem;
+  color: var(--omori-white);
+  z-index: 30;
+  border-radius: 6px;
+  max-width: 85%;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0,0,0,0.8);
+}
+
+.enemy-stage {
+  position: relative;
+  z-index: 10;
+  height: 55%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.enemy-portrait-frame {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.enemy-sketch {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: lineBoil 0.3s infinite steps(2);
+}
+
+.enemy-sketch.hit {
+  animation: enemyHit 0.3s ease;
+}
+
+.enemy-meta {
+  margin-top: 10px;
+  text-align: center;
+  background: rgba(13, 13, 18, 0.9);
+  border: 2px solid var(--omori-white);
+  padding: 6px 20px;
+  border-radius: 6px;
+}
+
+.enemy-name {
+  font-family: var(--font-retro);
+  font-size: 1.65rem;
+  letter-spacing: 2px;
+  color: var(--py-pink);
+}
+
+.enemy-state-badge {
+  font-family: var(--font-retro);
+  font-size: 1.15rem;
+  color: var(--py-yellow);
+}
+
+.enemy-hp-bar {
+  width: 170px;
+  height: 10px;
+  background: #333;
+  border: 1px solid #fff;
+  margin: 6px auto 0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.enemy-hp-fill {
+  width: 100%;
+  height: 100%;
+  background: var(--py-pink);
+  transition: width 0.3s ease;
+}
+
+.battle-ui-bottom {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
+}
+
+.party-grid {
+  display: flex;
+  gap: 16px;
+  flex-grow: 1;
+}
+
+.party-card {
+  background: rgba(13, 13, 18, 0.94);
+  border: 3px solid var(--omori-white);
+  border-radius: 6px;
+  padding: 10px 14px;
+  width: 170px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.8);
+}
+
+.party-card.active-turn {
+  border-color: var(--py-yellow);
+  transform: translateY(-8px);
+  box-shadow: 0 0 15px var(--py-yellow);
+}
+
+.party-name {
+  font-family: var(--font-retro);
+  font-size: 1.45rem;
+  color: var(--omori-white);
+  display: flex;
+  justify-content: space-between;
+}
+
+.party-state {
+  font-size: 0.9rem;
+  padding: 1px 4px;
+  border-radius: 2px;
+  background: #333;
+}
+.party-state.optimized { background: var(--py-yellow); color: #000; font-weight: bold; }
+.party-state.bugged { background: var(--py-error); color: #fff; }
+.party-state.recursive { background: var(--py-cyan); color: #000; font-weight: bold; }
+
+.stat-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-retro);
+  font-size: 1.15rem;
+}
+
+.stat-icon { font-size: 1.05rem; }
+.stat-bar {
+  flex-grow: 1;
+  height: 8px;
+  background: #222;
+  border: 1px solid #666;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.stat-fill.hp { background: #ff4d6d; width: 100%; transition: width 0.3s; }
+.stat-fill.juice { background: #00b4d8; width: 100%; transition: width 0.3s; }
+
+.command-menu {
+  background: rgba(13, 13, 18, 0.95);
+  border: 4px solid var(--omori-white);
+  border-radius: 8px;
+  padding: 12px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 290px;
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.8);
+}
+
+.cmd-btn {
+  background: transparent;
+  border: none;
+  color: var(--omori-white);
+  font-family: var(--font-retro);
+  font-size: 1.65rem;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 6px;
+}
+
+.cmd-btn:hover {
+  background: var(--omori-white);
+  color: var(--omori-black);
+}
+
+.cmd-btn .cost {
+  font-size: 1.15rem;
+  color: var(--py-cyan);
+}
+
+.skills-modal {
+  position: absolute;
+  bottom: 130px;
+  right: 40px;
+  background: var(--omori-black);
+  border: 4px solid var(--omori-white);
+  border-radius: 8px;
+  padding: 16px;
+  width: 390px;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 160;
+  box-shadow: 0 0 30px rgba(0,0,0,0.9);
+}
+
+.skills-modal.active {
+  display: flex;
+}
+
+.skill-row {
+  background: #181a24;
+  border: 2px solid var(--omori-white);
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: all 0.1s;
+}
+
+.skill-row:hover {
+  background: var(--omori-white);
+  color: var(--omori-black);
+}
+
+.skill-title-bar {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-retro);
+  font-size: 1.45rem;
+}
+
+.skill-desc {
+  font-family: var(--font-sketch);
+  font-size: 1.15rem;
+  color: var(--omori-gray);
+}
+
+/* ================= CONTROLS HINT ================= */
+.controls-bar {
+  position: absolute;
+  bottom: 16px;
+  left: 20px;
+  z-index: 40;
+  display: flex;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.ctrl-item {
+  background: rgba(13, 13, 18, 0.92);
+  border: 2px solid var(--omori-gray);
+  padding: 5px 14px;
+  font-size: 1.15rem;
+  color: var(--omori-white);
+  border-radius: 4px;
+}
+
+/* ================= MOBILE CONTROLS ================= */
+.mobile-dpad {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: none;
+  grid-template-columns: repeat(3, 52px);
+  grid-template-rows: repeat(3, 52px);
+  gap: 6px;
+  z-index: 80;
+}
+
+.mobile-act-btns {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+  gap: 12px;
+  z-index: 80;
+}
+
+.m-btn {
+  background: rgba(13, 13, 18, 0.9);
+  border: 3px solid var(--omori-white);
+  color: var(--omori-white);
+  font-family: var(--font-retro);
+  font-size: 1.8rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .mobile-dpad, .mobile-act-btns {
+    display: grid;
+  }
+  .controls-bar { display: none; }
+}
+
+/* Keyframes */
+@keyframes lineBoil {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(1px, -1px) rotate(0.4deg); }
+  66% { transform: translate(-1px, 1px) rotate(-0.4deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes blinkPrompt {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes omoriPopIn {
+  from { transform: translateX(-50%) translateY(15px); opacity: 0; }
+  to { transform: translateX(-50%) translateY(0); opacity: 1; }
+}
+
+@keyframes battleShatter {
+  0% { opacity: 0; transform: scale(1.08); filter: invert(1); }
+  50% { opacity: 0.8; filter: invert(0); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes enemyHit {
+  0% { transform: scale(1); filter: brightness(3); }
+  25% { transform: translateX(-15px) scale(0.95); }
+  50% { transform: translateX(15px) scale(1.05); }
+  75% { transform: translateX(-8px); }
+  100% { transform: translateX(0); filter: brightness(1); }
+}
