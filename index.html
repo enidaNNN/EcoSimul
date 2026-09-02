@@ -3,213 +3,316 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>PYTHOMORI: Echoes in the Terminal | Belajar Pemrograman Python Ala OMORI</title>
-  <meta name="description" content="Game RPG bertema OMORI untuk belajar pemrograman Python dari nol sampai fungsi (def), loop, dan penanganan error secara interaktif.">
+  <title>ECO-VALLEY: Simulasi Keseimbangan Ekosistem & 10 Misi Rantai Makanan</title>
+  <meta name="description" content="Simulasi interaktif rantai makanan dan 10 misi ekologi terinspirasi Stardew Valley. Belajar biologi lewat eksperimen sebab-akibat real-time dan kuis pemahaman!">
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css">
+  <!-- Google Fonts for Stardew Pixel Art Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=VT323&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stardew Valley Stylesheet -->
+  <link rel="stylesheet" href="css/stardew-eco.css">
 </head>
 <body>
 
-  <!-- Main Game Viewport (16:9 Aspect Ratio) -->
-  <main class="game-viewport" id="gameViewport">
-    
-    <!-- 2D Pure White Space RPG Canvas -->
-    <canvas id="rpgCanvas"></canvas>
+  <!-- Game Main App Container -->
+  <div id="gameApp">
 
-    <!-- Top Status Bar -->
-    <header class="top-bar">
-      <div class="white-space-badge" id="realmBadge">WHITE SPACE</div>
-      <div class="top-btns">
-        <button class="pixel-btn" id="btnSound">🔊 BGM: ON</button>
-      </div>
-    </header>
+    <!-- Viewport Container -->
+    <div id="viewportContainer">
+      <!-- 2D/2.5D Pixel Art Canvas -->
+      <canvas id="ecoCanvas"></canvas>
 
-    <!-- OMORI Dialogue Box System -->
-    <section class="dialogue-box-container" id="dialogueContainer" aria-label="Dialogue Window">
-      <div class="omori-textbox" id="omoriTextbox" onclick="DialogueSystem.advance()">
-        
-        <!-- Character Avatar Box (Left) -->
-        <div class="dialogue-avatar-box">
-          <img id="dialogueAvatar" class="dialogue-avatar-img" src="" alt="Avatar">
-        </div>
+      <!-- Non-intrusive Temporary Notice Badge (Top-Center) -->
+      <div id="quickNoticeBadge" class="quick-notice-badge"></div>
 
-        <!-- Dialogue Content & Choices -->
-        <div class="dialogue-content">
-          <div class="dialogue-name" id="dialogueName">PY</div>
-          <div class="dialogue-text" id="dialogueText">
-            <!-- Typewriter text inserted dynamically -->
+      <!-- TOP-RIGHT: Iconic Stardew Valley Wooden Clock & Eco Gold Box -->
+      <div class="stardew-hud-topright">
+        <!-- Wooden Clock Frame -->
+        <div class="stardew-clock-box">
+          <div class="clock-dial-container">
+            <div class="clock-sky" id="clockSky"></div>
+            <div class="clock-hand" id="clockHand"></div>
+            <div class="clock-center-pin"></div>
           </div>
 
-          <!-- Branching Choices -->
-          <div class="dialogue-choices" id="dialogueChoices"></div>
-          
-          <div class="dialogue-advance-icon">▼ [SPASI] / Klik untuk lanjut</div>
+          <!-- Time & Season Info -->
+          <div class="clock-info-panel">
+            <div class="clock-day-row">
+              <span class="clock-day-text" id="clockDayText">Mon. 1</span>
+              <div class="clock-season-icons">
+                <span class="season-badge" id="seasonIcon" title="Musim">🌸</span>
+                <span class="season-badge" id="weatherIcon" title="Cuaca">☀️</span>
+              </div>
+            </div>
+            <div class="clock-time-text" id="clockTimeText">6:50 am</div>
+          </div>
         </div>
 
+        <!-- Eco Gold Score Counter Box -->
+        <div class="stardew-gold-box">
+          <div class="gold-icon-label">
+            <span>G ECO</span>
+          </div>
+          <div class="gold-number-slots">
+            <span id="goldScoreNumber">1000</span>
+          </div>
+        </div>
       </div>
-    </section>
 
-    <!-- Interactive Live Python IDE & Lesson Modal -->
-    <aside class="terminal-modal" id="terminalModal" aria-label="Interactive Python IDE">
-      <div class="terminal-window">
-        <div class="terminal-header">
-          <span>>>> PYTHON 3.12 INTERACTIVE TERMINAL</span>
-          <button class="pixel-btn" id="btnCloseTerminal" style="padding: 2px 10px; font-size: 1.1rem;">✕</button>
+      <!-- TOP-LEFT: Valley Badge, Climate Controls & Mission Journal Button -->
+      <div class="stardew-hud-topleft">
+        <div class="valley-badge">
+          <span class="star-icon">🌿</span>
+          <span id="valleyBadgeText">Lembah Greenwood</span>
         </div>
-        
-        <div class="terminal-body">
-          <!-- Lesson Card (Materi & Tantangan) -->
-          <div class="terminal-lesson-box">
-            <div class="lesson-title" id="lessonTitle">BAB 1: DASAR OUTPUT — FUNGSI print()</div>
-            <div class="lesson-desc" id="lessonDesc">
-              Materi dan tantangan akan muncul di sini...
+
+        <!-- Demetrius Mission Journal Quick Button -->
+        <button class="stardew-btn mission-journal-trigger-btn" id="btnOpenMissions">
+          📜 BUKU MISI DEMETRIUS (10 MISI)
+        </button>
+
+        <div class="climate-controls-row">
+          <div class="climate-select-group">
+            <label for="selectSeason">Musim:</label>
+            <select id="selectSeason" class="stardew-select">
+              <option value="spring">🌸 Semi (Spring)</option>
+              <option value="summer">🌻 Panas (Summer)</option>
+              <option value="fall">🍁 Gugur (Fall)</option>
+              <option value="winter">❄️ Dingin (Winter)</option>
+            </select>
+          </div>
+
+          <div class="climate-select-group">
+            <label for="selectWeather">Cuaca:</label>
+            <select id="selectWeather" class="stardew-select">
+              <option value="sunny">☀️ Cerah Berawan</option>
+              <option value="rainy">🌧️ Hujan Subur</option>
+              <option value="storm">⛈️ Badai Petir</option>
+              <option value="drought">🔥 Kemarau Panjang</option>
+            </select>
+          </div>
+
+          <div class="hud-btn-group">
+            <button class="stardew-btn" id="btnSpeed" title="Kecepatan Waktu">1x Normal</button>
+            <button class="stardew-btn" id="btnSound" title="Suara BGM">Suara: ON</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOP-CENTER: Hotbar Active Tools -->
+      <div class="stardew-hotbar" id="hotbar">
+        <div class="hotbar-slot selected" data-tool="inspect" title="[1] Observasi (Klik hewan, tanaman, tanah, atau air di peta)">
+          <span class="hotbar-key">1</span>
+          <span class="hotbar-icon">🔍</span>
+        </div>
+        <div class="hotbar-slot" data-tool="plant" title="[2] Tanam Benih (Klik di tanah untuk menanam rumput)">
+          <span class="hotbar-key">2</span>
+          <span class="hotbar-icon">🌱</span>
+        </div>
+        <div class="hotbar-slot" data-tool="talk" title="[3] Buka Buku Misi & Kuis Demetrius">
+          <span class="hotbar-key">3</span>
+          <span class="hotbar-icon">📜</span>
+        </div>
+      </div>
+
+      <!-- BOTTOM-LEFT: Stardew Valley Dialogue Box (HIDDEN BY DEFAULT, HAS CLOSE BUTTON) -->
+      <div class="stardew-dialogue-container" id="dialogueContainer" style="display:none;">
+        <button class="dialogue-close-btn" id="btnCloseDialogue" title="Tutup Percakapan">✕</button>
+
+        <div class="dialogue-portrait-box">
+          <canvas id="dialoguePortrait" width="96" height="96" class="dialogue-portrait-canvas"></canvas>
+        </div>
+
+        <div class="dialogue-content-area">
+          <div class="dialogue-speaker-name" id="dialogueSpeakerName">
+            Demetrius <span style="font-size:11px; background:#e8d0a5; padding:1px 6px; border-radius:3px; border:1px solid #7c4c1e;">Ahli Ekologi</span>
+          </div>
+          <div class="dialogue-text-body" id="dialogueTextBody"></div>
+          <div class="dialogue-choices-row" id="dialogueChoicesRow"></div>
+          <div class="dialogue-hint">Tekan [ESC] atau klik tombol ✕ untuk menutup</div>
+        </div>
+      </div>
+
+      <!-- BOTTOM-RIGHT: Free Ecosystem Sliders & Mini Chart Dock (COLLAPSIBLE FOR UNOBSTRUCTED OBSERVATION) -->
+      <div class="ecosystem-dock" id="ecosystemDock">
+        <div class="dock-header" id="dockHeader">
+          <div class="dock-title">
+            <span>PIRAMIDA & KONTROL POPULASI</span>
+          </div>
+          <button class="dock-collapse-btn" id="btnCollapseDock" title="Buka/Tutup Panel (Bisa dibuka-tutup untuk observasi luas)">➖ CIUTKAN</button>
+        </div>
+
+        <div class="dock-body-content" id="dockBodyContent">
+          <!-- Sliders for Free Experimentation with Clean Non-Overlapping Layout -->
+          <div class="slider-group">
+            <!-- 1. Produsen -->
+            <div class="slider-row">
+              <div class="slider-meta">
+                <div class="species-title-row">
+                  <span class="species-name">Produsen (Rumput & Semak)</span>
+                  <span class="species-tag tag-producer">TINGKAT I</span>
+                </div>
+                <div class="species-count" id="countGrass">85%</div>
+              </div>
+              <input type="range" id="sliderGrass" class="stardew-slider" min="10" max="100" value="85">
+            </div>
+
+            <!-- 2. Konsumen I -->
+            <div class="slider-row">
+              <div class="slider-meta">
+                <div class="species-title-row">
+                  <span class="species-name">Konsumen I (Kelinci & Rusa)</span>
+                  <span class="species-tag tag-herbivore">TINGKAT II</span>
+                </div>
+                <div class="species-count" id="countHerbivores">18 (14🐇 + 4🦌)</div>
+              </div>
+              <input type="range" id="sliderHerbivores" class="stardew-slider" min="0" max="50" value="18">
+            </div>
+
+            <!-- 3. Konsumen II -->
+            <div class="slider-row">
+              <div class="slider-meta">
+                <div class="species-title-row">
+                  <span class="species-name">Konsumen II (Rubah)</span>
+                  <span class="species-tag tag-carnivore">TINGKAT III</span>
+                </div>
+                <div class="species-count" id="countCarnivores">4 (4🦊)</div>
+              </div>
+              <input type="range" id="sliderCarnivores" class="stardew-slider" min="0" max="18" value="4">
+            </div>
+
+            <!-- 4. Konsumen Puncak -->
+            <div class="slider-row">
+              <div class="slider-meta">
+                <div class="species-title-row">
+                  <span class="species-name">Konsumen Puncak (Elang & Serigala)</span>
+                  <span class="species-tag tag-apex">TINGKAT IV</span>
+                </div>
+                <div class="species-count" id="countApex">4 (2🦅 + 2🐺)</div>
+              </div>
+              <input type="range" id="sliderApex" class="stardew-slider" min="0" max="8" value="4">
             </div>
           </div>
 
-          <!-- Code Editor Area -->
-          <div class="code-editor-wrapper">
-            <span class="editor-label"># Tulis kode Python kamu di editor bawah ini:</span>
-            <textarea class="terminal-code-input" id="terminalCodeInput" spellcheck="false"></textarea>
-          </div>
-
-          <!-- Live Output Console -->
-          <div class="console-output-box" id="consoleOutput">
-            >>> Output console akan muncul di sini setelah kamu klik tombol "RUN CODE"...
-          </div>
-
-          <!-- Actions & Hint -->
-          <div class="terminal-footer">
-            <span class="terminal-status-hint" id="lessonHint">💡 Petunjuk: Perhatikan tanda kurung dan kutip!</span>
-            <button class="pixel-btn" id="btnRunCode" style="background: #00ffaa; color: #000; font-weight: bold; padding: 10px 28px; font-size: 1.4rem;">
-              ▶ RUN CODE [JALANKAN]
-            </button>
-          </div>
-        </div>
-      </div>
-    </aside>
-
-    <!-- OMORI Turn-Based Battle Viewport Layer -->
-    <section class="battle-layer" id="battleLayer" aria-label="Battle Screen">
-      
-      <!-- Battle Log Ticker -->
-      <div class="battle-ticker" id="battleTicker">A wild SYNTAX ERROR appeared!</div>
-
-      <!-- Enemy Center Stage -->
-      <div class="enemy-stage">
-        <div class="enemy-portrait-frame">
-          <img id="enemySketch" class="enemy-sketch" src="" alt="Enemy">
-        </div>
-        <div class="enemy-meta">
-          <div class="enemy-name" id="enemyName">SYNTAX ERROR PHANTOM</div>
-          <div class="enemy-state-badge" id="enemyState">[ STATE: BUGGED ]</div>
-          <div class="enemy-hp-bar">
-            <div class="enemy-hp-fill" id="enemyHpFill"></div>
+          <!-- Mini Population Chart -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <span>Dinamika Populasi Real-time</span>
+              <span style="font-size:10px; color:#8c5625;">Grafik 60 Detik</span>
+            </div>
+            <canvas id="chartCanvas" width="340" height="55"></canvas>
           </div>
         </div>
       </div>
 
-      <!-- Battle UI Bottom (Party Status Cards + Command Menu) -->
-      <div class="battle-ui-bottom">
-        
-        <!-- Party Status Cards Grid -->
-        <div class="party-grid" id="partyGrid">
-          <!-- Dynamically populated party cards -->
-        </div>
+      <!-- Collapsed Floating Tab (Shown when dock is closed) -->
+      <button class="dock-collapsed-tab" id="dockCollapsedTab" style="display:none;">
+        📊 KONTROL POPULASI & GRAFIK [KLIK UNTUK MEMBUKA]
+      </button>
 
-        <!-- Command Menu (Attack / Skills / Try-Except) -->
-        <div class="command-menu">
-          <button class="cmd-btn" id="cmdAttack">
-            <span>▶ print("Attack")</span>
-            <span class="cost">0 MP</span>
-          </button>
-          <button class="cmd-btn" id="cmdSkill">
-            <span>▶ Python Skills</span>
-            <span class="cost">MENU</span>
-          </button>
-          <button class="cmd-btn" id="cmdTryExcept">
-            <span>▶ try ... except:</span>
-            <span class="cost">20 MP</span>
-          </button>
-        </div>
+      <!-- Inspection Tooltip (Rich Data for Soil, Water, Trees, Animals, Buildings) -->
+      <div class="inspect-tooltip" id="inspectTooltip"></div>
 
+      <!-- Touch Controls for Mobile / Tablets -->
+      <div class="touch-controls">
+        <div class="dpad">
+          <button class="dpad-btn up" id="dpadUp">▲</button>
+          <button class="dpad-btn down" id="dpadDown">▼</button>
+          <button class="dpad-btn left" id="dpadLeft">◀</button>
+          <button class="dpad-btn right" id="dpadRight">▶</button>
+        </div>
       </div>
-
-      <!-- Skills Submenu Popup -->
-      <div class="skills-modal" id="skillsModal">
-        <div class="skill-title-bar" style="border-bottom: 2px solid #fff; padding-bottom: 4px; margin-bottom: 8px;">
-          <span>PYTHON SKILLS</span>
-          <span style="font-size: 1.1rem; color: #aaa;">SELECT TO CAST</span>
-        </div>
-        <div id="skillsList" style="display: flex; flex-direction: column; gap: 8px;"></div>
-      </div>
-
-    </section>
-
-    <!-- Desktop Controls Hint (Bottom Left) -->
-    <div class="controls-bar">
-      <div class="ctrl-item"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> Gerak</div>
-      <div class="ctrl-item"><kbd>E</kbd> / <kbd>SPASI</kbd> Belajar & Dialog</div>
+      <button class="touch-action-btn" id="touchActionBtn" title="Aksi">⚡</button>
     </div>
 
-    <!-- Mobile Touch Controls -->
-    <div class="mobile-dpad">
-      <div></div>
-      <button class="m-btn" id="mUp">▲</button>
-      <div></div>
-      <button class="m-btn" id="mLeft">◀</button>
-      <div></div>
-      <button class="m-btn" id="mRight">▶</button>
-      <div></div>
-      <button class="m-btn" id="mDown">▼</button>
-      <div></div>
+    <!-- DEMETRIUS ON-DEMAND 10-MISSION & QUIZ POPUP MODAL -->
+    <div class="modal-backdrop" id="demetriusMissionModal" style="display:none;">
+      <div class="stardew-letter-modal mission-journal-modal">
+        <button class="modal-close-corner-btn" id="btnCloseMissionModal" title="Tutup Jurnal">✕</button>
+
+        <div class="mission-modal-header">
+          <div class="mission-portrait-frame">
+            <canvas id="missionDemetriusPortrait" width="96" height="96" class="dialogue-portrait-canvas"></canvas>
+          </div>
+          <div class="mission-header-info">
+            <h2 id="missionModalTitle">Misi 1: Fondasi Kehidupan (1/10)</h2>
+            <div style="font-family:'Silkscreen'; font-size:11px; color:#8c4200;">LABORATORIUM RISET DEMETRIUS</div>
+          </div>
+        </div>
+
+        <div class="mission-modal-body" id="missionModalBody">
+          <div class="mission-desc-box">
+            <p id="missionModalDesc"></p>
+          </div>
+
+          <div id="missionStatusBadge" class="mission-status-badge status-pending"></div>
+
+          <div class="mission-quiz-card" id="missionQuizCard" style="display:none;">
+            <div class="quiz-badge">KUIS PEMAHAMAN BIOLOGI</div>
+            <div class="quiz-question-text" id="quizQuestionText"></div>
+            <div class="quiz-options-container" id="quizOptionsContainer"></div>
+          </div>
+
+          <div id="missionHintBox" class="mission-result-box result-hint" style="display:none;"></div>
+          <div id="missionResultBox" class="mission-result-box result-success" style="display:none;"></div>
+        </div>
+      </div>
     </div>
 
-    <div class="mobile-act-btns">
-      <button class="m-btn" id="mAction" style="width: 60px; height: 60px;">E</button>
+    <!-- INITIAL CHARACTER CREATION MODAL -->
+    <div class="modal-backdrop" id="characterModal">
+      <div class="stardew-letter-modal">
+        <div class="letter-header">
+          <h1>SURAT TUGAS PENGAMAT EKOSISTEM</h1>
+          <p>Laboratorium Konservasi Alam Pedesaan</p>
+        </div>
+
+        <div class="letter-content">
+          <p>Selamat datang di Lembah! Kami membutuhkan seorang peneliti muda untuk mengamati dan menjaga harmoni rantai makanan alami. Tuntaskan 10 misi penelitian untuk mendapatkan izin pulang ke rumah!</p>
+        </div>
+
+        <div class="char-form-group">
+          <label for="inputPlayerName">NAMA PENELITI / RANGER:</label>
+          <input type="text" id="inputPlayerName" class="stardew-input" value="Robin" maxlength="16" placeholder="Nama karaktermu...">
+        </div>
+
+        <div class="char-form-group">
+          <label for="inputValleyName">NAMA LEMBAH / KEBUN:</label>
+          <input type="text" id="inputValleyName" class="stardew-input" value="Lembah Greenwood" maxlength="24" placeholder="Nama lembah...">
+        </div>
+
+        <div class="character-preview-row">
+          <canvas id="avatarPreviewCanvas" class="avatar-select-canvas"></canvas>
+          <div style="display:flex; flex-direction:column; gap:6px; flex:1;">
+            <span style="font-family:'Silkscreen'; font-size:11px; color:#5c3514;">PILIHAN TOPI PENELITI:</span>
+            <div class="hat-options">
+              <button class="hat-btn selected" data-hat="straw">Caping Jerami</button>
+              <button class="hat-btn" data-hat="ranger">Topi Ranger</button>
+              <button class="hat-btn" data-hat="flower">Pita Bunga</button>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-start-game" id="btnStartGame">
+          MULAI RISET ALAM (BUKA MISI 1)
+        </button>
+      </div>
     </div>
 
-  </main>
+  </div>
 
-  <!-- Script Modules in exact dependency order -->
-  <script src="js/art.js"></script>
-  <script src="js/audio.js"></script>
-  <script src="js/interpreter.js"></script>
-  <script src="js/curriculum.js"></script>
-  <script src="js/battle.js"></script>
+  <!-- JavaScript Modules in Strict Dependency Order -->
+  <script src="js/audio/retro-audio.js"></script>
+  <script src="js/graphics/pixel-sprites.js"></script>
+  <script src="js/simulation/ecosystem.js"></script>
+  <script src="js/missions.js"></script>
+  <script src="js/graphics/renderer.js"></script>
+  <script src="js/entities/player.js"></script>
+  <script src="js/ui/dialogue.js"></script>
+  <script src="js/ui/hud.js"></script>
   <script src="js/game.js"></script>
-  <script src="js/engine.js"></script>
 
-  <!-- Game Bootstrap -->
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      // 1. Initialize Engine & Story
-      const engine = new PythomoriEngine('rpgCanvas');
-      GameStory.init(engine);
-
-      // 2. Sound Toggle
-      const btnSound = document.getElementById('btnSound');
-      if (btnSound) {
-        btnSound.onclick = () => {
-          AudioEngine.init();
-          const muted = AudioEngine.toggleMute();
-          btnSound.innerText = muted ? '🔇 BGM: OFF' : '🔊 BGM: ON';
-        };
-      }
-
-      // 3. User interaction to unlock audio
-      const unlockAudio = () => {
-        AudioEngine.init();
-        AudioEngine.playBGM(engine.currentRealm === 'white_space' ? 'idle' : 'pyspace');
-        window.removeEventListener('click', unlockAudio);
-        window.removeEventListener('keydown', unlockAudio);
-      };
-      window.addEventListener('click', unlockAudio);
-      window.addEventListener('keydown', unlockAudio);
-
-      // 4. Start 60fps Game Loop
-      engine.loop();
-    });
-  </script>
 </body>
 </html>

@@ -1,0 +1,1135 @@
+/* ==========================================================================
+   ECO-VALLEY: HARMONY OF THE FOOD CHAIN
+   Stardew Valley Aesthetic Design System & Stylesheet (16-Bit Pixel Refined)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Silkscreen:wght@400;700&family=Outfit:wght@400;600;700&display=swap');
+
+:root {
+  --wood-dark: #3a1c0b;
+  --wood-mid: #683616;
+  --wood-caramel: #b8712f;
+  --parchment-bg: #f8edd1;
+  --parchment-light: #fff7e6;
+  --parchment-border: #6d3e16;
+  --stardew-gold: #f4b41b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  background: #141f12 url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" fill="%23141f12"/><rect x="0" y="0" width="20" height="20" fill="%231a2a17"/><rect x="20" y="20" width="20" height="20" fill="%231a2a17"/></svg>');
+  font-family: 'VT323', monospace;
+  color: #3b220c;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#gameApp {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  max-width: 1600px;
+  max-height: 960px;
+  display: flex;
+  flex-direction: column;
+  background: #000;
+  border: 4px solid #4a2810;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.85);
+  overflow: hidden;
+}
+
+#viewportContainer {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  background: #487e2b;
+  overflow: hidden;
+}
+
+#ecoCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Quick Non-Intrusive Notice Badge */
+.quick-notice-badge {
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fffdf5;
+  border: 3px solid #6d3e16;
+  border-radius: 8px;
+  padding: 6px 18px;
+  font-family: 'Silkscreen', monospace;
+  font-size: 12px;
+  color: #5c3514;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+  z-index: 150;
+  display: none;
+  pointer-events: none;
+  text-align: center;
+  max-width: 80%;
+}
+
+/* ==========================================================================
+   STARDEW VALLEY CLOCK & GOLD BOX
+   ========================================================================== */
+.stardew-hud-topright {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  z-index: 100;
+  pointer-events: auto;
+  filter: drop-shadow(2px 4px 5px rgba(0, 0, 0, 0.65));
+}
+
+.stardew-clock-box {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(180deg, #c77f37 0%, #8b4c1f 100%);
+  border: 4px solid #3c1906;
+  border-radius: 22px 6px 6px 22px;
+  box-shadow: inset 2px 2px 0 #ebb06b, inset -2px -2px 0 #4f2207, 0 4px 0 #210d02;
+  padding: 4px;
+  height: 76px;
+}
+
+.clock-dial-container {
+  width: 64px;
+  height: 64px;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #3c1906;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
+  background: #62b2ea;
+}
+
+.clock-sky {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    #ffcc00 0deg 90deg, 
+    #6cb4e4 90deg 180deg, 
+    #1b2742 180deg 270deg, 
+    #324669 270deg 360deg
+  );
+  transform: rotate(0deg);
+  transition: transform 0.6s ease-out;
+}
+
+.clock-hand {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 28px;
+  background: #ffd54f;
+  border: 1px solid #7c4c1e;
+  transform-origin: bottom center;
+  transform: translate(-50%, -100%) rotate(0deg);
+  z-index: 2;
+}
+
+.clock-center-pin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background: #d48b28;
+  border: 2px solid #3c1906;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.clock-info-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 10px;
+  min-width: 120px;
+}
+
+.clock-day-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #5a2c0c;
+  padding-bottom: 2px;
+}
+
+.clock-day-text {
+  font-family: 'Silkscreen', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: #2b1305;
+}
+
+.clock-season-icons {
+  display: flex;
+  gap: 3px;
+}
+
+.season-badge { font-size: 16px; }
+
+.clock-time-text {
+  font-family: 'VT323', monospace;
+  font-size: 28px;
+  line-height: 26px;
+  font-weight: 700;
+  color: #1a0a02;
+  margin-top: 4px;
+  text-align: right;
+  letter-spacing: 1px;
+}
+
+.stardew-gold-box {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(180deg, #d98f3f 0%, #994f1b 100%);
+  border: 3px solid #3c1906;
+  border-radius: 6px;
+  box-shadow: inset 2px 2px 0 #ffc17d, inset -2px -2px 0 #4f2207, 0 3px 0 #1b0a02;
+  padding: 3px 8px;
+  width: 180px;
+  justify-content: space-between;
+}
+
+.gold-icon-label {
+  font-family: 'Silkscreen', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 1px 1px 0 #3c1906, -1px -1px 0 #3c1906;
+}
+
+.gold-number-slots {
+  background: #e8d0a5;
+  border: 2px solid #5b280a;
+  border-radius: 3px;
+  padding: 1px 8px;
+  font-family: 'VT323', monospace;
+  font-size: 24px;
+  font-weight: bold;
+  color: #7c2d12;
+  letter-spacing: 2px;
+  text-align: right;
+  min-width: 90px;
+}
+
+/* ==========================================================================
+   TOP-LEFT: VALLEY BADGE & CLIMATE CONTROLS
+   ========================================================================== */
+.stardew-hud-topleft {
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 100;
+  pointer-events: auto;
+}
+
+.valley-badge {
+  background: #f8edd1;
+  border: 3px solid #6d3e16;
+  border-radius: 6px;
+  padding: 4px 12px;
+  box-shadow: 0 4px 0 #281105;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Silkscreen', monospace;
+  font-size: 13px;
+  color: #4a270d;
+}
+
+.mission-journal-trigger-btn {
+  background: linear-gradient(180deg, #d97706 0%, #b45309 100%) !important;
+  font-size: 11px !important;
+  padding: 6px 10px !important;
+  color: #fff !important;
+  box-shadow: 0 3px 0 #451a03 !important;
+}
+
+.climate-controls-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: rgba(248, 237, 209, 0.92);
+  border: 3px solid #6d3e16;
+  border-radius: 6px;
+  padding: 6px 8px;
+  box-shadow: 0 3px 0 #281105;
+}
+
+.climate-select-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: 'Silkscreen', monospace;
+  font-size: 10px;
+  color: #5c3514;
+}
+
+.stardew-select {
+  background: #fff9ed;
+  border: 2px solid #6d3e16;
+  border-radius: 4px;
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  color: #3b1d06;
+  padding: 1px 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+.hud-btn-group {
+  display: flex;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.stardew-btn {
+  background: linear-gradient(180deg, #d98f3f 0%, #994f1b 100%);
+  border: 2px solid #3c1906;
+  border-radius: 5px;
+  color: #fff;
+  font-family: 'Silkscreen', monospace;
+  font-size: 11px;
+  padding: 5px 8px;
+  cursor: pointer;
+  box-shadow: inset 1px 1px 0 #ffc17d, inset -1px -1px 0 #4f2207, 0 3px 0 #1b0a02;
+  transition: transform 0.05s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.stardew-btn:hover { filter: brightness(1.1); }
+.stardew-btn:active { transform: translateY(2px); box-shadow: inset 1px 1px 0 #ffc17d, 0 1px 0 #1b0a02; }
+
+/* ==========================================================================
+   HOTBAR TOOLBAR
+   ========================================================================== */
+.stardew-hotbar {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  background: #c77f37;
+  border: 3px solid #3c1906;
+  border-radius: 8px;
+  padding: 4px 6px;
+  box-shadow: 0 4px 0 #1b0a02;
+  z-index: 99;
+}
+
+.hotbar-slot {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  background: #eed7b2;
+  border: 2px solid #683616;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #b38853;
+  transition: transform 0.1s;
+}
+
+.hotbar-slot:hover { background: #fff2d9; transform: translateY(-2px); }
+.hotbar-slot.selected {
+  border-color: #d32f2f;
+  box-shadow: 0 0 0 3px #f44336, inset 2px 2px 0 #fff;
+  background: #ffebc2;
+}
+
+.hotbar-icon { font-size: 24px; }
+.hotbar-key {
+  position: absolute;
+  top: 1px;
+  left: 3px;
+  font-family: 'Silkscreen', monospace;
+  font-size: 9px;
+  color: #683616;
+  font-weight: bold;
+}
+
+/* ==========================================================================
+   DISMISSIBLE DIALOGUE BOX (HIDDEN BY DEFAULT)
+   ========================================================================== */
+.stardew-dialogue-container {
+  position: absolute;
+  bottom: 16px;
+  left: 18px;
+  right: 430px;
+  max-width: 900px;
+  background: #f8edd1;
+  border: 5px solid #6d3e16;
+  border-radius: 10px;
+  box-shadow: inset 4px 4px 0 #fff8e8, inset -4px -4px 0 #d4b889, 0 8px 0 #281105;
+  padding: 12px 16px;
+  z-index: 120;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  pointer-events: auto;
+  min-height: 125px;
+}
+
+.dialogue-close-btn {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background: #dc2626;
+  border: 2px solid #3c1906;
+  border-radius: 4px;
+  color: #fff;
+  font-family: 'Silkscreen', monospace;
+  font-size: 11px;
+  padding: 2px 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 0 #281105;
+}
+
+.dialogue-close-btn:hover { background: #ef4444; }
+
+.dialogue-portrait-box {
+  width: 96px;
+  height: 96px;
+  background: #dfbe8f;
+  border: 4px solid #4a2810;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.dialogue-portrait-canvas {
+  width: 96px;
+  height: 96px;
+  image-rendering: pixelated;
+}
+
+.dialogue-content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.dialogue-speaker-name {
+  font-family: 'Silkscreen', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: #662208;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dialogue-text-body {
+  font-family: 'VT323', monospace;
+  font-size: 24px;
+  line-height: 25px;
+  color: #2b1405;
+  margin-top: 4px;
+  min-height: 52px;
+}
+
+.dialogue-choices-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.dialogue-choice-btn {
+  background: #fffdf5;
+  border: 2px solid #6d3e16;
+  border-radius: 4px;
+  padding: 3px 10px;
+  font-family: 'VT323', monospace;
+  font-size: 19px;
+  color: #4a2608;
+  cursor: pointer;
+  box-shadow: 0 2px 0 #3c1906;
+}
+
+.dialogue-choice-btn:hover {
+  background: #ffeaa7;
+  color: #8c2800;
+  transform: translateY(-1px);
+}
+
+.dialogue-hint {
+  align-self: flex-end;
+  font-family: 'Silkscreen', monospace;
+  font-size: 10px;
+  color: #8c5625;
+}
+
+/* ==========================================================================
+   DEMETRIUS ON-DEMAND 10-MISSION & QUIZ POPUP MODAL (SCROLLABLE & NO CLIPPING)
+   ========================================================================== */
+.mission-journal-modal {
+  width: 95% !important;
+  max-width: 680px !important;
+  max-height: 86vh !important;
+  overflow-y: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: relative !important;
+  padding: 20px 24px !important;
+}
+
+/* Custom Wooden Scrollbar */
+.mission-journal-modal::-webkit-scrollbar {
+  width: 10px;
+}
+
+.mission-journal-modal::-webkit-scrollbar-track {
+  background: #edd5a8;
+  border: 1px solid #784119;
+  border-radius: 5px;
+}
+
+.mission-journal-modal::-webkit-scrollbar-thumb {
+  background: #b8712f;
+  border: 2px solid #5a2e0e;
+  border-radius: 5px;
+}
+
+.mission-journal-modal::-webkit-scrollbar-thumb:hover {
+  background: #994f1b;
+}
+
+.modal-close-corner-btn {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: #dc2626;
+  border: 2px solid #3c1906;
+  border-radius: 4px;
+  color: #fff;
+  font-family: 'Silkscreen', monospace;
+  font-size: 13px;
+  padding: 4px 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 0 #281105;
+  z-index: 10;
+}
+
+.modal-close-corner-btn:hover { background: #ef4444; }
+
+.mission-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 3px double #784119;
+  padding-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.mission-portrait-frame {
+  width: 80px;
+  height: 80px;
+  background: #dfbe8f;
+  border: 3px solid #4a2810;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.mission-header-info h2 {
+  font-family: 'Silkscreen', monospace;
+  font-size: 17px;
+  color: #6b2609;
+}
+
+.mission-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+  flex: 1;
+}
+
+.mission-desc-box {
+  background: #fffdf5;
+  border: 2px solid #6d3e16;
+  border-radius: 6px;
+  padding: 10px 14px;
+  line-height: 22px;
+}
+
+.mission-status-badge {
+  font-family: 'Silkscreen', monospace;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-align: center;
+  line-height: 15px;
+}
+
+.status-pending {
+  background: #fef3c7;
+  border: 2px solid #b45309;
+  color: #92400e;
+}
+
+.status-ready {
+  background: #dcfce7;
+  border: 2px solid #15803d;
+  color: #166534;
+}
+
+.btn-go-experiment {
+  background: linear-gradient(180deg, #22c55e 0%, #15803d 100%) !important;
+  border: 3px solid #14532d !important;
+  color: #fff !important;
+  font-family: 'Silkscreen', monospace !important;
+  font-size: 12px !important;
+  padding: 10px 16px !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 0 #052e16 !important;
+  width: 100% !important;
+  text-align: center !important;
+}
+
+.btn-go-experiment:hover {
+  filter: brightness(1.1) !important;
+  transform: translateY(-2px) !important;
+}
+
+.mission-quiz-card {
+  background: #fdf6e2;
+  border: 3px solid #784119;
+  border-radius: 6px;
+  padding: 12px 14px;
+}
+
+.quiz-badge {
+  font-family: 'Silkscreen', monospace;
+  font-size: 11px;
+  color: #9a3412;
+  font-weight: bold;
+}
+
+.quiz-question-text {
+  font-size: 21px;
+  line-height: 23px;
+  color: #1c1917;
+  font-weight: bold;
+  margin: 6px 0 10px 0;
+}
+
+.quiz-options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.stardew-quiz-option-btn {
+  background: #fffdf5;
+  border: 2px solid #6d3e16;
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  text-align: left;
+  color: #2b1405;
+  cursor: pointer;
+  transition: all 0.1s;
+  box-shadow: 0 2px 0 #6d3e16;
+}
+
+.stardew-quiz-option-btn:hover:not([disabled]) {
+  background: #ffedd5;
+  border-color: #ea580c;
+  color: #9a3412;
+  transform: translateX(4px);
+}
+
+.mission-result-box {
+  border-radius: 6px;
+  padding: 12px 14px;
+}
+
+.result-hint {
+  background: #fef2f2;
+  border: 3px solid #b91c1c;
+  color: #7f1d1d;
+  box-shadow: 0 3px 0 #991b1b;
+}
+
+.result-success {
+  background: #f0fdf4;
+  border: 3px solid #15803d;
+  color: #14532d;
+  box-shadow: 0 3px 0 #166534;
+}
+
+/* ==========================================================================
+   BOTTOM-RIGHT: ECOSYSTEM DOCK & SLIDERS (COLLAPSIBLE)
+   ========================================================================== */
+.ecosystem-dock {
+  position: absolute;
+  bottom: 16px;
+  right: 18px;
+  width: 410px;
+  background: #f8edd1;
+  border: 4px solid #6d3e16;
+  border-radius: 8px;
+  box-shadow: inset 3px 3px 0 #fff8e8, inset -3px -3px 0 #cca874, 0 6px 0 #281105;
+  padding: 12px 14px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: auto;
+  transition: all 0.2s ease-in-out;
+}
+
+.dock-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #d4b889;
+  padding-bottom: 6px;
+}
+
+.dock-title {
+  font-family: 'Silkscreen', monospace;
+  font-size: 12px;
+  font-weight: bold;
+  color: #4a2608;
+}
+
+.dock-collapse-btn {
+  background: linear-gradient(180deg, #d98f3f 0%, #994f1b 100%);
+  border: 2px solid #3c1906;
+  border-radius: 4px;
+  font-family: 'Silkscreen', monospace;
+  font-size: 10px;
+  color: #fff;
+  padding: 3px 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 0 #200d02;
+}
+
+.dock-collapse-btn:hover { filter: brightness(1.1); }
+
+/* Collapsed Floating Tab */
+.dock-collapsed-tab {
+  position: absolute;
+  bottom: 16px;
+  right: 18px;
+  background: linear-gradient(180deg, #d98f3f 0%, #994f1b 100%);
+  border: 3px solid #3c1906;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-family: 'Silkscreen', monospace;
+  font-size: 11px;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: inset 1px 1px 0 #ffc17d, 0 4px 0 #1b0a02;
+  z-index: 100;
+  pointer-events: auto;
+}
+
+.dock-collapsed-tab:hover {
+  filter: brightness(1.15);
+  transform: translateY(-2px);
+}
+
+.slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.slider-row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: rgba(255, 253, 245, 0.6);
+  border: 1px solid #e2cca1;
+  border-radius: 6px;
+  padding: 5px 8px;
+}
+
+.slider-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.species-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.species-name {
+  font-family: 'Silkscreen', monospace;
+  font-size: 11px;
+  color: #3b1d06;
+  font-weight: bold;
+}
+
+.species-tag {
+  font-size: 9px;
+  font-family: 'Silkscreen', monospace;
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.tag-producer { background: #2e7d32; }
+.tag-herbivore { background: #d97706; }
+.tag-carnivore { background: #dc2626; }
+.tag-apex { background: #1d4ed8; }
+
+.species-count {
+  font-family: 'VT323', monospace;
+  font-size: 21px;
+  line-height: 20px;
+  font-weight: bold;
+  color: #6b2609;
+  text-align: right;
+}
+
+input[type="range"].stardew-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 12px;
+  background: #e2cca1;
+  border: 2px solid #683616;
+  border-radius: 4px;
+  outline: none;
+}
+
+input[type="range"].stardew-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #f4b41b;
+  border: 2px solid #3c1906;
+  border-radius: 3px;
+  cursor: pointer;
+  box-shadow: inset 1px 1px 0 #fff, 0 2px 0 #200d02;
+}
+
+.chart-card {
+  background: #fffdf5;
+  border: 2px solid #7c481e;
+  border-radius: 4px;
+  padding: 6px;
+  margin-top: 4px;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-family: 'Silkscreen', monospace;
+  color: #5c3514;
+  margin-bottom: 4px;
+}
+
+#chartCanvas {
+  display: block;
+  width: 100%;
+  height: 55px;
+  background: #f4eed9;
+  border: 1px solid #cbb387;
+  border-radius: 2px;
+}
+
+/* ==========================================================================
+   INSPECTION MODAL / TOOLTIP
+   ========================================================================= */
+.inspect-tooltip {
+  position: absolute;
+  background: #fffaf0;
+  border: 3px solid #6d3e16;
+  border-radius: 6px;
+  padding: 10px 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+  pointer-events: none;
+  z-index: 130;
+  display: none;
+  font-family: 'VT323', monospace;
+  min-width: 240px;
+  max-width: 320px;
+}
+
+.inspect-title {
+  font-family: 'Silkscreen', monospace;
+  font-size: 12px;
+  font-weight: bold;
+  color: #7b290b;
+  border-bottom: 2px solid #d4b889;
+  padding-bottom: 4px;
+  margin-bottom: 6px;
+}
+
+.inspect-stat-row {
+  font-size: 18px;
+  line-height: 19px;
+  color: #3b1d06;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ==========================================================================
+   CHARACTER CREATION MODAL
+   ========================================================================== */
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 12, 6, 0.8);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.stardew-letter-modal {
+  width: 90%;
+  max-width: 580px;
+  background: #f8edd1;
+  border: 6px solid #5a2e0e;
+  border-radius: 10px;
+  box-shadow: inset 4px 4px 0 #fff8e8, inset -4px -4px 0 #c7a46e, 0 12px 30px rgba(0,0,0,0.8);
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  color: #3b1d06;
+}
+
+.letter-header {
+  text-align: center;
+  border-bottom: 3px double #784119;
+  padding-bottom: 8px;
+}
+
+.letter-header h1 {
+  font-family: 'Silkscreen', monospace;
+  font-size: 20px;
+  color: #6b2609;
+}
+
+.letter-header p {
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  color: #5c3514;
+}
+
+.letter-content {
+  font-family: 'VT323', monospace;
+  font-size: 22px;
+  line-height: 23px;
+}
+
+.char-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.char-form-group label {
+  font-family: 'Silkscreen', monospace;
+  font-size: 12px;
+  color: #5c3514;
+}
+
+.stardew-input {
+  background: #fffaf0;
+  border: 3px solid #6d3e16;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-family: 'VT323', monospace;
+  font-size: 26px;
+  color: #2b1305;
+  outline: none;
+}
+
+.stardew-input:focus {
+  border-color: #d97706;
+  background: #ffffff;
+}
+
+.character-preview-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #edd5a8;
+  border: 2px solid #784119;
+  border-radius: 6px;
+  padding: 10px 14px;
+}
+
+.avatar-select-canvas {
+  width: 64px;
+  height: 64px;
+  background: #dfbe8f;
+  border: 3px solid #4a2810;
+  border-radius: 4px;
+  image-rendering: pixelated;
+}
+
+.hat-options {
+  display: flex;
+  gap: 8px;
+}
+
+.hat-btn {
+  background: #fffdf5;
+  border: 2px solid #6d3e16;
+  border-radius: 4px;
+  padding: 5px 8px;
+  font-family: 'Silkscreen', monospace;
+  font-size: 11px;
+  cursor: pointer;
+  color: #4a2608;
+}
+
+.hat-btn.selected {
+  background: #f59e0b;
+  color: #fff;
+  border-color: #8c4200;
+}
+
+.btn-start-game {
+  background: linear-gradient(180deg, #4ea323 0%, #29680c 100%);
+  border: 3px solid #143805;
+  border-radius: 8px;
+  color: #fff;
+  font-family: 'Silkscreen', monospace;
+  font-size: 16px;
+  padding: 10px 20px;
+  cursor: pointer;
+  box-shadow: inset 2px 2px 0 #85e051, inset -2px -2px 0 #133904, 0 4px 0 #0c2002;
+  transition: transform 0.1s;
+  text-align: center;
+}
+
+.btn-start-game:hover { filter: brightness(1.1); transform: scale(1.02); }
+
+/* Touch controls */
+.touch-controls {
+  position: absolute;
+  bottom: 140px;
+  left: 20px;
+  z-index: 95;
+  display: none;
+  pointer-events: auto;
+}
+
+.dpad {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.dpad-btn {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  background: #d69857;
+  border: 2px solid #542b0d;
+  border-radius: 6px;
+  color: #3b1d06;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 0 #281105;
+}
+
+.dpad-btn.up { top: 0; left: 41px; }
+.dpad-btn.down { bottom: 0; left: 41px; }
+.dpad-btn.left { top: 41px; left: 0; }
+.dpad-btn.right { top: 41px; right: 0; }
+
+.touch-action-btn {
+  position: absolute;
+  bottom: 140px;
+  right: 20px;
+  width: 58px;
+  height: 58px;
+  background: linear-gradient(180deg, #4ea323 0%, #29680c 100%);
+  border: 3px solid #143805;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 24px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 0 #0c2002;
+  z-index: 95;
+  pointer-events: auto;
+}
+
+@media (max-width: 1024px) {
+  .stardew-dialogue-container {
+    right: 18px;
+    bottom: 230px;
+  }
+  .ecosystem-dock {
+    width: calc(100% - 36px);
+    bottom: 10px;
+    right: 18px;
+    left: 18px;
+    max-height: 240px;
+    overflow-y: auto;
+  }
+  .touch-controls, .touch-action-btn {
+    display: flex;
+  }
+}

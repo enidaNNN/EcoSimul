@@ -1,50 +1,74 @@
-# 🐍 PYTHOMORI: Echoes in the Terminal
-> **An OMORI-Inspired Psychological Programming RPG about Learning Python**
+# 🌾 ECO-VALLEY: Harmony of the Food Chain
+> **Simulasi Rantai Makanan & Keseimbangan Ekosistem Interaktif Terinspirasi Visual Cozy Farm Stardew Valley**
 
 ---
 
-## 🌟 Game Synopsis
-You play as **PY**, a silent coder who awakens inside **IDLE SPACE** — a stark monochromatic void with a glowing terminal laptop, a handmade green snake plushie named *Pip*, a cold cup of coffee, and a sketchbook with uncompiled code doodles.
+## 🌟 Konsep Game & Nilai Edukasi
+**Eco-Valley** adalah game simulasi ekologi interaktif di mana pemain berperan sebagai seorang peneliti lingkungan di sebuah lembah pedesaan. Terinspirasi oleh estetika visual pixel art yang hangat, jam kayu melengkung (*wooden clock HUD*), dialog rustic, serta roh penjaga hutan (*Junimo*) dari game **Stardew Valley**.
 
-Beyond the floating Black Door lies **PY-SPACE**, a whimsical dreamworld textured with colored pencils and pastel crayons. Accompanied by your data type companions (**Ruby the String**, **Intel the Integer**, and **Tuple the List**), you will explore logic meadows, solve loop bridge puzzles, and face the creepy-cute **SyntaxError Phantom** in turn-based psychological code combat!
-
----
-
-## 🎨 OMORI Design & Aesthetic Parallels
-
-| OMORI Element | PYTHOMORI Parallel |
-|---|---|
-| **White Space** | **IDLE Space (The Monochromatic Void)**: Laptop terminal `>>>`, Pip the Snake plushie, cold coffee, sketchbook, black floating door. |
-| **Headspace** | **Py-Space (The Dreamworld of Logic)**: Pastel colored-pencil meadows, rivers of teal numbers, floating code constellations. |
-| **Emotion Chart (Happy > Angry > Sad)** | **Logic States**: `OPTIMIZED` (high crit, fast) vs `BUGGED` (glitchy, takes error damage) vs `RECURSIVE` (stacking power). |
-| **Line-Boil Sketch Portraits** | **Hand-Drawn Pencil Boil Animation**: 3-frame sketch wiggle oscillations on all character and enemy battle avatars. |
-| **Tag-Team Energy System** | **JUICE (Memory) & Python Code Skills**: `print()`, `for i in range(3):`, `try ... except:`, `str.split()`, `math.sqrt()`. |
-| **Poetic Object Inspects** | Inspecting the cold coffee, terminal, and sketchbook reveals introspective psychological programming reflections. |
+Pemain belajar konsep **Keseimbangan Ekosistem & Rantai Makanan (Biologi)** secara mandiri melalui **eksperimen sebab-akibat langsung (*active learning & experimental causality*)**:
+- Bebas menggeser slider populasi untuk mengamati apa yang terjadi saat rantai makanan tidak seimbang.
+- Menganalisis masalah ekologis: apakah rumput gundul karena kelebihan herbivora? Apakah pemangsa kelaparan karena mangsa punah?
+- Mengatur iklim dan 4 musim serta cuaca ekstrem (kemarau vs hujan).
+- Berdiskusi dengan **Demetrius** (Ahli Ekologi) untuk meminta evaluasi dan petunjuk. Jika ekosistem stabil, Demetrius akan memberikan acungan jempol 👍!
 
 ---
 
-## ⚔️ Python Battle Skills
+## 🔬 Rantai Makanan & Tingkat Trofik Multi-Spesies
 
-- `print("Strike!")` (0 MP): Basic logical strike with Py's Indentation Dagger.
-- `for i in range(3):` (15 MP): Triple-strike loop that hits the enemy 3 consecutive times!
-- `try ... except:` (20 MP): Counter shield that absorbs the enemy's bug attacks (`Missing Colon :`, `Unclosed Parenthesis )`, `Indentation Error`) and converts it into healing HP!
-- `text.split()` (Ruby Skill): Splits the enemy's concentration, inflicting `BUGGED` state.
-- `math.sqrt(x)` (Intel Skill): Analytical strike calculating enemy weakness.
-- `list.append()` (Tuple Skill): Packs defense shields `[🛡️]`.
+```mermaid
+graph TD
+    Sun[☀️ Matahari & Iklim] --> Producers[🌿 Tingkat I: Produsen Primer<br>Rumput Lembah & Semak Berry]
+    Producers --> Herbivores[🐇 Tingkat II: Konsumen I<br>Kelinci & Rusa Hutan]
+    Herbivores --> Carnivores[🦊 Tingkat III: Konsumen II<br>Rubah Merah]
+    Carnivores --> Apex[🦅🐺 Tingkat IV: Konsumen Puncak<br>Elang Emas & Serigala Hutan]
+    Herbivores --> Apex
+    Apex -.-> Decomp[🍂 Pengurai & Kesuburan Tanah]
+    Decomp -.-> Producers
+```
+
+### Detail Tingkat Trofik & Peran Spesies
+| Tingkat Trofik | Spesies | Makanan / Sumber Energi | Peran Ekologis |
+|---|---|---|---|
+| **Tingkat I (Produsen)** | 🌿 **Rumput Lembah** & 🍓 **Semak Berry** | Fotosintesis sinar matahari & air | Fondasi biomassa. Menopang daya dukung (*carrying capacity*) seluruh lembah. |
+| **Tingkat II (Konsumen I)** | 🐇 **Kelinci** & 🦌 **Rusa Hutan** | Rumput liar & buah berry | Herbivora pemakan tanaman. Jika kenyang, bereproduksi (❤️). Menjadi mangsa pemangsa. |
+| **Tingkat III (Konsumen II)** | 🦊 **Rubah Merah** | Daging kelinci | Mesopredator pengendali. Mencegah kelinci menggunduli seluruh rumput. |
+| **Tingkat IV (Konsumen Puncak)** | 🦅 **Elang Emas** & 🐺 **Serigala Hutan** | Rusa, kelinci, & rubah | Pengendali puncak (*Apex Predators*). Menjaga rantai makanan agar tidak terjadi *Trophic Cascade*. |
+| **Roh Pelindung Hutan** | 🍏 **Junimo** | Keseimbangan alam | Menari gembira saat ekosistem stabil dan memberi berkah kesuburan padang rumput. |
 
 ---
 
-## 🕹️ Controls Guide
+## 🌦️ Sistem Iklim & Cuaca Interaktif
 
-| Action | Desktop (PC) | Mobile / Touch |
+Pemain dapat mengubah **Musim** dan **Cuaca** secara langsung pada panel pojok kiri atas:
+1. **Musim (Seasons)**:
+   - 🌸 **Musim Semi (Spring)**: Pertumbuhan rumput seimbang, bunga mekar, kelopak sakura beterbangan.
+   - 🌻 **Musim Panas (Summer)**: Sinar matahari terik, regenerasi rumput dan berry sangat cepat.
+   - 🍁 **Musim Gugur (Fall)**: Warna dedaunan dan rumput berubah menjadi kuning keemasan, guguran daun amber.
+   - ❄️ **Musim Dingin (Winter)**: Salju menutupi tanah, pertumbuhan vegetasi melambat drastis.
+2. **Cuaca (Weather)**:
+   - ☀️ **Cerah Berawan (Sunny)**: Cuaca stabil normal.
+   - 🌧️ **Hujan Subur (Rainy)**: Menyuburkan tanah, mempercepat tumbuhnya tunas rumput.
+   - ⛈️ **Badai Petir (Storm)**: Hujan deras dan petir.
+   - 🔥 **Kemarau Panjang (Drought)**: Tanah mengering, rumput layu, menguji ketahanan daya dukung lingkungan.
+
+---
+
+## 🕹️ Panduan Kontrol & Eksperimen
+
+| Aksi | Keyboard (PC) | Mouse / Sentuh (Mobile/Tablet) |
 |---|---|---|
-| **Move (Top-Down 4 Directions)** | <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> or <kbd>Arrow Keys</kbd> | On-screen D-Pad `▲` `▼` `◀` `▶` |
-| **Inspect / Advance Dialogue** | <kbd>E</kbd> / <kbd>SPACE</kbd> / <kbd>ENTER</kbd> / Mouse Click | Button `E` / Tap Screen |
-| **Toggle Audio** | Click top-right `🔊 BGM` button | Tap `🔊 BGM` |
+| **Gerak Karakter (8 Arah)** | <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> atau <kbd>Panah</kbd> | Klik/Tap pada peta atau gunakan D-Pad virtual |
+| **Observasi / Inspect Spesies** | Tekan angka <kbd>1</kbd> atau Dekati lalu tekan <kbd>Spasi</kbd> | Klik icon 🔍 di hotbar atas |
+| **Tanam Benih Rumput Subur** | Tekan angka <kbd>2</kbd> lalu tekan <kbd>Spasi</kbd> | Klik icon 🌱 di hotbar atas |
+| **Bicara dengan Demetrius/Junimo** | Tekan angka <kbd>3</kbd> lalu tekan <kbd>Spasi</kbd> | Klik icon 💬 atau klik langsung NPC di peta |
+| **Eksperimen Slider Populasi** | Geser slider pada dock kanan bawah | Geser slider dengan mouse/jari |
+| **Minta Petunjuk Ekosistem** | Tombol *Minta Petunjuk Demetrius* | Klik tombol di panel kanan |
 
 ---
 
-## 🚀 How to Play
-1. Open the folder: `d:\TuhanKuatkanAku\pythomori-game\`.
-2. Double-click **`index.html`** to play in any modern web browser (**Chrome**, **Edge**, **Firefox**, etc.).
-3. No server or installation required!
+## 🚀 Cara Menjalankan
+
+1. Buka direktori proyek: `d:\TuhanKuatkanAku\pythomori-game\`.
+2. Klik dua kali file **`index.html`** untuk langsung membukanya di browser web (**Google Chrome**, **Microsoft Edge**, **Mozilla Firefox**, dll.).
+3. Tanpa instalasi atau dependensi server — 100% berjalan instan di peramban Anda!
