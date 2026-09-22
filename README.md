@@ -1,74 +1,50 @@
-# 🌾 ECO-VALLEY: Harmony of the Food Chain
-> **Simulasi Rantai Makanan & Keseimbangan Ekosistem Interaktif Terinspirasi Visual Cozy Farm Stardew Valley**
+# Eco-Valley: Harmony of the Food Chain
+
+Simulasi santai tentang kehidupan lembah, rantai makanan, dan cara alam menjaga keseimbangannya. Terinspirasi dari nuansa pedesaan Stardew Valley.
+
+![Tampilan Lembah Eco-Valley](assets/gameplay_main.jpg)
 
 ---
 
-## 🌟 Konsep Game & Nilai Edukasi
-**Eco-Valley** adalah game simulasi ekologi interaktif di mana pemain berperan sebagai seorang peneliti lingkungan di sebuah lembah pedesaan. Terinspirasi oleh estetika visual pixel art yang hangat, jam kayu melengkung (*wooden clock HUD*), dialog rustic, serta roh penjaga hutan (*Junimo*) dari game **Stardew Valley**.
+## Tentang Game
 
-Pemain belajar konsep **Keseimbangan Ekosistem & Rantai Makanan (Biologi)** secara mandiri melalui **eksperimen sebab-akibat langsung (*active learning & experimental causality*)**:
-- Bebas menggeser slider populasi untuk mengamati apa yang terjadi saat rantai makanan tidak seimbang.
-- Menganalisis masalah ekologis: apakah rumput gundul karena kelebihan herbivora? Apakah pemangsa kelaparan karena mangsa punah?
-- Mengatur iklim dan 4 musim serta cuaca ekstrem (kemarau vs hujan).
-- Berdiskusi dengan **Demetrius** (Ahli Ekologi) untuk meminta evaluasi dan petunjuk. Jika ekosistem stabil, Demetrius akan memberikan acungan jempol 👍!
+Di Eco-Valley, kamu berperan sebagai peneliti muda yang mengamati kehidupan di sebuah lembah hijau. Di sini, kamu bisa bersantai sambil bereksperimen langsung dengan alam:
 
----
+- Mengatur jumlah rumput, kelinci, rusa, rubah, elang, dan serigala lewat slider populasi.
+- Mengubah cuaca dan musim, mulai dari hujan sejuk di musim semi hingga salju di musim dingin.
+- Menyelesaikan 10 jurnal riset dan kuis santai bersama Demetrius untuk memahami cara kerja ekosistem.
+- Mengamati reaksi alam ketika salah satu rantai makanan terganggu.
 
-## 🔬 Rantai Makanan & Tingkat Trofik Multi-Spesies
-
-```mermaid
-graph TD
-    Sun[☀️ Matahari & Iklim] --> Producers[🌿 Tingkat I: Produsen Primer<br>Rumput Lembah & Semak Berry]
-    Producers --> Herbivores[🐇 Tingkat II: Konsumen I<br>Kelinci & Rusa Hutan]
-    Herbivores --> Carnivores[🦊 Tingkat III: Konsumen II<br>Rubah Merah]
-    Carnivores --> Apex[🦅🐺 Tingkat IV: Konsumen Puncak<br>Elang Emas & Serigala Hutan]
-    Herbivores --> Apex
-    Apex -.-> Decomp[🍂 Pengurai & Kesuburan Tanah]
-    Decomp -.-> Producers
-```
-
-### Detail Tingkat Trofik & Peran Spesies
-| Tingkat Trofik | Spesies | Makanan / Sumber Energi | Peran Ekologis |
-|---|---|---|---|
-| **Tingkat I (Produsen)** | 🌿 **Rumput Lembah** & 🍓 **Semak Berry** | Fotosintesis sinar matahari & air | Fondasi biomassa. Menopang daya dukung (*carrying capacity*) seluruh lembah. |
-| **Tingkat II (Konsumen I)** | 🐇 **Kelinci** & 🦌 **Rusa Hutan** | Rumput liar & buah berry | Herbivora pemakan tanaman. Jika kenyang, bereproduksi (❤️). Menjadi mangsa pemangsa. |
-| **Tingkat III (Konsumen II)** | 🦊 **Rubah Merah** | Daging kelinci | Mesopredator pengendali. Mencegah kelinci menggunduli seluruh rumput. |
-| **Tingkat IV (Konsumen Puncak)** | 🦅 **Elang Emas** & 🐺 **Serigala Hutan** | Rusa, kelinci, & rubah | Pengendali puncak (*Apex Predators*). Menjaga rantai makanan agar tidak terjadi *Trophic Cascade*. |
-| **Roh Pelindung Hutan** | 🍏 **Junimo** | Keseimbangan alam | Menari gembira saat ekosistem stabil dan memberi berkah kesuburan padang rumput. |
+![Jurnal Riset dan Kuis Demetrius](assets/gameplay_mission_quiz.jpg)
 
 ---
 
-## 🌦️ Sistem Iklim & Cuaca Interaktif
+## Rantai Makanan di Lembah
 
-Pemain dapat mengubah **Musim** dan **Cuaca** secara langsung pada panel pojok kiri atas:
-1. **Musim (Seasons)**:
-   - 🌸 **Musim Semi (Spring)**: Pertumbuhan rumput seimbang, bunga mekar, kelopak sakura beterbangan.
-   - 🌻 **Musim Panas (Summer)**: Sinar matahari terik, regenerasi rumput dan berry sangat cepat.
-   - 🍁 **Musim Gugur (Fall)**: Warna dedaunan dan rumput berubah menjadi kuning keemasan, guguran daun amber.
-   - ❄️ **Musim Dingin (Winter)**: Salju menutupi tanah, pertumbuhan vegetasi melambat drastis.
-2. **Cuaca (Weather)**:
-   - ☀️ **Cerah Berawan (Sunny)**: Cuaca stabil normal.
-   - 🌧️ **Hujan Subur (Rainy)**: Menyuburkan tanah, mempercepat tumbuhnya tunas rumput.
-   - ⛈️ **Badai Petir (Storm)**: Hujan deras dan petir.
-   - 🔥 **Kemarau Panjang (Drought)**: Tanah mengering, rumput layu, menguji ketahanan daya dukung lingkungan.
+Semua makhluk di lembah saling terhubung dan saling membutuhkan:
+
+- **Produsen (Rumput dan Semak Berry)**: Sumber makanan utama yang tumbuh dari sinar matahari dan air.
+- **Konsumen I (Kelinci dan Rusa)**: Hewan pemakan tanaman yang menjaga padang rumput tetap terpangkas.
+- **Konsumen II (Rubah Merah)**: Menjaga agar kelinci tidak menghabiskan seluruh vegetasi lembah.
+- **Konsumen Puncak (Elang Emas dan Serigala)**: Mengontrol populasi hewan di bawahnya agar ekosistem tetap seimbang.
+- **Roh Hutan (Junimo)**: Muncul menari saat kondisi lembah berada dalam harmoni yang sehat.
 
 ---
 
-## 🕹️ Panduan Kontrol & Eksperimen
+## Cara Bermain
 
-| Aksi | Keyboard (PC) | Mouse / Sentuh (Mobile/Tablet) |
-|---|---|---|
-| **Gerak Karakter (8 Arah)** | <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> atau <kbd>Panah</kbd> | Klik/Tap pada peta atau gunakan D-Pad virtual |
-| **Observasi / Inspect Spesies** | Tekan angka <kbd>1</kbd> atau Dekati lalu tekan <kbd>Spasi</kbd> | Klik icon 🔍 di hotbar atas |
-| **Tanam Benih Rumput Subur** | Tekan angka <kbd>2</kbd> lalu tekan <kbd>Spasi</kbd> | Klik icon 🌱 di hotbar atas |
-| **Bicara dengan Demetrius/Junimo** | Tekan angka <kbd>3</kbd> lalu tekan <kbd>Spasi</kbd> | Klik icon 💬 atau klik langsung NPC di peta |
-| **Eksperimen Slider Populasi** | Geser slider pada dock kanan bawah | Geser slider dengan mouse/jari |
-| **Minta Petunjuk Ekosistem** | Tombol *Minta Petunjuk Demetrius* | Klik tombol di panel kanan |
+- **Jalan**: Tombol W, A, S, D atau tombol Panah (atau D-Pad di layar sentuh).
+- **Periksa Sekitar**: Dekati tanaman atau hewan, lalu tekan Spasi atau angka 1.
+- **Tanam Rumput**: Tekan angka 2 lalu tekan Spasi untuk menanam tunas baru di tanah.
+- **Bicara dengan NPC**: Dekati Demetrius atau Junimo lalu tekan Spasi atau angka 3.
+- **Ubah Populasi**: Geser slider di panel kanan bawah untuk melihat perubahan jumlah makhluk hidup secara langsung.
 
 ---
 
-## 🚀 Cara Menjalankan
+## Cara Memulai
 
-1. Buka direktori proyek: `d:\TuhanKuatkanAku\pythomori-game\`.
-2. Klik dua kali file **`index.html`** untuk langsung membukanya di browser web (**Google Chrome**, **Microsoft Edge**, **Mozilla Firefox**, dll.).
-3. Tanpa instalasi atau dependensi server — 100% berjalan instan di peramban Anda!
+- **Mainkan Langsung (Web / Demo Online)**: Kunjungi tautan [https://enidannn.github.io/EcoSimul/](https://enidannn.github.io/EcoSimul/)
+- **Mainkan secara Lokal**:
+  1. Buka folder proyek ini di komputermu: [EcoSim](file:///d:/TuhanKuatkanAku/EcoSim).
+  2. Klik dua kali file [index.html](file:///d:/TuhanKuatkanAku/EcoSim/index.html) untuk membukanya di browser pilihanmu (Chrome, Edge, Firefox, dan lainnya).
+  3. Game langsung siap dimainkan tanpa instalasi tambahan.
